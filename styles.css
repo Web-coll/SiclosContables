@@ -1,0 +1,92 @@
+:root {
+  --bg: #0f1221;
+  --panel: #171a2b;
+  --panel-2: #1f2340;
+  --text: #eef1ff;
+  --muted: #a8b0d3;
+  --primary: #7c9cff;
+  --ok: #4ad295;
+  --warn: #f2b851;
+  --danger: #ff6b7d;
+  --border: #2d335a;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: radial-gradient(circle at top, #1a2042, var(--bg));
+  color: var(--text);
+}
+.app-shell { display: grid; grid-template-columns: 300px 1fr; min-height: 100vh; }
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 24px 18px;
+  background: rgba(10, 13, 27, 0.75);
+  backdrop-filter: blur(8px);
+}
+.sidebar h1 { margin: 0; font-size: 1.4rem; }
+.subtitle { color: var(--muted); margin-top: 8px; }
+.cycle-progress { margin: 22px 0; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--panel); }
+.cycle-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.progress-track { width: 100%; height: 8px; border-radius: 100px; background: #23294e; overflow: hidden; }
+#progressBar { height: 100%; width: 0%; background: linear-gradient(90deg, #62d2ff, #7c9cff); transition: width .35s; }
+.tabs { display: grid; gap: 8px; }
+.tab {
+  background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 10px;
+  padding: 10px 12px; text-align: left; cursor: pointer; transition: .2s;
+}
+.tab.active, .tab:hover { background: var(--panel-2); border-color: var(--primary); }
+.content { padding: 22px; }
+.topbar { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 18px; }
+.topbar h2 { margin: 0; }
+.topbar p { margin: 5px 0 0; color: var(--muted); }
+.mode-toggle { display: flex; gap: 8px; align-items: center; }
+.chip {
+  background: #263063; color: #cdd8ff; border: 1px solid #3e4a86;
+  border-radius: 999px; padding: 6px 12px; cursor: pointer;
+}
+.chip.active { background: var(--primary); color: #0a122d; font-weight: 700; }
+.panel {
+  background: linear-gradient(180deg, rgba(30,35,65,.8), rgba(23,26,43,.9));
+  border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 16px;
+}
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+.metrics article { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+.metrics h3 { margin: 0; font-size: .9rem; color: var(--muted); }
+.metrics p { margin: 10px 0 0; font-size: 1.35rem; font-weight: 700; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.input-row { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin: 12px 0; }
+textarea, input[type="number"] {
+  border: 1px solid var(--border); background: #12162c; color: var(--text);
+  border-radius: 10px; padding: 11px; font: inherit;
+}
+textarea { min-height: 95px; resize: vertical; }
+.quick-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.actions-row { display: flex; gap: 8px; }
+button#analyzeBtn {
+  background: linear-gradient(90deg, #63d3ff, #7c9cff); color: #0d1835;
+  font-weight: 800; border: none; border-radius: 10px; padding: 10px 14px; cursor: pointer;
+}
+button.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; }
+.assumptions, .explanation, .preview-box {
+  margin-top: 12px; border: 1px solid var(--border); border-radius: 10px; padding: 11px; background: #11152a;
+}
+.hidden { display: none; }
+.flow-steps { display: flex; gap: 8px; color: var(--muted); font-size: .92rem; margin-bottom: 10px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border-bottom: 1px solid var(--border); padding: 8px; text-align: left; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.card { border: 1px solid var(--border); border-radius: 10px; background: #11152a; padding: 10px; }
+.statement p { display: flex; justify-content: space-between; border-bottom: 1px dashed #303963; padding: 7px 0; margin: 0; }
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { padding: 10px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 8px; }
+.badge { font-size: .75rem; padding: 2px 8px; border-radius: 999px; background: #263063; }
+
+@media (max-width: 1050px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .input-row { grid-template-columns: 1fr; }
+}
