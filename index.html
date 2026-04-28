@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Siclos Contables | Contabilidad en lenguaje natural</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <h1>SiclosContables</h1>
+        <p class="subtitle">Contabilidad automática en lenguaje natural</p>
+
+        <div class="cycle-progress">
+          <div class="cycle-header">
+            <span>Progreso del ciclo</span>
+            <strong id="cyclePercent">0%</strong>
+          </div>
+          <div class="progress-track"><div id="progressBar"></div></div>
+          <small id="cycleHealth">Estado general: ✅ Correcto</small>
+        </div>
+
+        <nav id="tabs" class="tabs">
+          <button class="tab active" data-tab="registro">Registro</button>
+          <button class="tab" data-tab="asientos">Asientos</button>
+          <button class="tab" data-tab="cuentas">Cuentas T</button>
+          <button class="tab" data-tab="balanza">Balanza</button>
+          <button class="tab" data-tab="resultados">Estado de resultados</button>
+          <button class="tab" data-tab="situacion">Estado de situación</button>
+          <button class="tab" data-tab="historial">Historial</button>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <h2>Dashboard contable en tiempo real</h2>
+            <p>Escribe una operación y visualiza su impacto completo al instante.</p>
+          </div>
+          <div class="mode-toggle">
+            <span>Modo:</span>
+            <button id="modeLearn" class="chip active">Aprendizaje</button>
+            <button id="modeFast" class="chip">Rápido</button>
+          </div>
+        </header>
+
+        <section id="dashboard" class="panel metrics">
+          <article>
+            <h3>Ingresos</h3>
+            <p id="kpiIngresos">$0.00</p>
+          </article>
+          <article>
+            <h3>Gastos</h3>
+            <p id="kpiGastos">$0.00</p>
+          </article>
+          <article>
+            <h3>Utilidad</h3>
+            <p id="kpiUtilidad">$0.00</p>
+          </article>
+          <article>
+            <h3>Caja/Banco</h3>
+            <p id="kpiCaja">$0.00</p>
+          </article>
+        </section>
+
+        <section id="registro" class="tab-panel active">
+          <div class="panel">
+            <h3>Registro inteligente de operaciones</h3>
+            <p>Ejemplo: “Se obtuvieron ingresos por trabajo en efectivo por $500”.</p>
+            <div class="input-row">
+              <textarea id="nlInput" placeholder="Describe la operación contable en lenguaje natural..."></textarea>
+              <input id="amountInput" type="number" min="0" step="0.01" placeholder="Monto (opcional si viene en texto)" />
+            </div>
+            <div class="quick-actions">
+              <button class="chip suggestion">Cobré servicios en efectivo por $500</button>
+              <button class="chip suggestion">Pagué renta del local por $800 con banco</button>
+              <button class="chip suggestion">Compré equipo por $1200 a crédito</button>
+            </div>
+            <div class="actions-row">
+              <button id="analyzeBtn">Interpretar y generar asiento</button>
+              <button id="clearBtn" class="ghost">Limpiar</button>
+            </div>
+            <div id="assumptions" class="assumptions hidden"></div>
+            <div id="explanation" class="explanation hidden"></div>
+          </div>
+
+          <div class="panel impact-flow">
+            <h3>Flujo contable</h3>
+            <div class="flow-steps">
+              <span>Input</span>
+              <span>→</span>
+              <span>Asiento</span>
+              <span>→</span>
+              <span>Cuentas T</span>
+              <span>→</span>
+              <span>Balanza</span>
+              <span>→</span>
+              <span>Estados</span>
+            </div>
+            <div id="impactPreview" class="preview-box">Aún no hay operación interpretada.</div>
+          </div>
+        </section>
+
+        <section id="asientos" class="tab-panel">
+          <div class="panel">
+            <h3>Asientos contables</h3>
+            <table>
+              <thead>
+                <tr><th>Fecha</th><th>Cuenta</th><th>Débito</th><th>Crédito</th><th>Origen</th></tr>
+              </thead>
+              <tbody id="entriesTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="cuentas" class="tab-panel">
+          <div class="panel">
+            <h3>Cuentas T (mayor)</h3>
+            <div id="tAccounts" class="cards-grid"></div>
+          </div>
+        </section>
+
+        <section id="balanza" class="tab-panel">
+          <div class="panel">
+            <h3>Balanza de comprobación</h3>
+            <table>
+              <thead><tr><th>Cuenta</th><th>Débito</th><th>Crédito</th><th>Saldo</th></tr></thead>
+              <tbody id="trialBalance"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="resultados" class="tab-panel">
+          <div class="panel">
+            <h3>Estado de resultados</h3>
+            <div class="statement" id="incomeStatement"></div>
+          </div>
+        </section>
+
+        <section id="situacion" class="tab-panel">
+          <div class="panel">
+            <h3>Estado de situación financiera</h3>
+            <div class="statement" id="balanceSheet"></div>
+          </div>
+        </section>
+
+        <section id="historial" class="tab-panel">
+          <div class="panel">
+            <h3>Historial (timeline)</h3>
+            <ul id="timeline" class="timeline"></ul>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
